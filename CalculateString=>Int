@@ -1,0 +1,39 @@
+
+
+replace :: (b -> Bool) -> b -> [b] -> [b]
+replace condition replacement text = map replaceChar text
+    where replaceChar c = if condition c then replacement else c
+
+
+
+isSign :: Char -> Bool
+isSign c
+      | c == '+' = True
+      | c == '-' = True
+      | otherwise = False
+--проверка на то, является ли символ знаком
+
+isNumberAndSign :: Char -> Bool
+isNumberAndSign  c = isDigit c || isSign c
+
+getNumbersAndSign :: String -> [String]
+getNumbersAndSign text = words $ replace (not . isNumberAndSign ) ' ' text
+
+
+checkTrueNumber :: Num b => [Char] -> b
+checkTrueNumber str = foldl check 1 $ tail str
+  where check flag c = if isSign c then flag * 0 else flag
+
+
+amountOfNumbers :: String -> Int
+amountOfNumbers text =  sum $ map checkTrueNumber $ getNumbersAndSign text
+
+
+test2 = [
+    amountOfNumbers "0012 3xaxa-1000" == 3,
+    amountOfNumbers "-17+12-1-" == 0,
+    amountOfNumbers "" == 0,
+    amountOfNumbers "--1000adf+100afds-100asd100"== 3,
+    amountOfNumbers "100-" == 0,
+    amountOfNumbers "100-100asdd-100dssdfs" == 1
+  ]
