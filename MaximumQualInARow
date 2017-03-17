@@ -1,0 +1,24 @@
+import Data.Char(isDigit)
+
+
+segmEquals' :: Eq a => [a] -> ([a], [a])
+segmEquals' [x] = ([x],[x])
+segmEquals' (x:tail@(y:_))
+  | x == y && length l1 + 1 > length lm1 = (x:l1, x:l1)
+  | x == y = (x:l1, lm1)
+  | otherwise = ([x], lm1)
+    where (l1, lm1 ) = segmEquals' tail
+
+segmEquals :: Eq a => [a] -> [a]
+segmEquals [] = []
+segmEquals list = snd $ segmEquals' list
+
+
+test1 = [
+    segmEquals [1,3,3,6,7,3] == [3,3],
+    segmEquals [5,5,5,1,1,1] == [1,1,1],
+    segmEquals [0,0,0,1,2,3,4] == [0,0,0],
+    segmEquals [-1,1,-1,1,-1,1,1,-1] == [1,1],
+    segmEquals [1,1,1,1,1,1] == [1,1,1,1,1,1],
+    segmEquals [1,1,1,1,1,1] == [1,1,1,1,1]
+  ]
