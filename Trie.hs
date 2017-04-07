@@ -11,10 +11,10 @@ data Trie = Empty | Node Char [Trie]
 --переименнование
 type Dictionary = [Trie]
 
-
 addWord :: String -> Dictionary -> Dictionary
-addWord [] dictionary = dictionary
-addWord (x:xs) [] = (addWord1 (x:xs) [Empty]) --некрасивая строка, работало без нее 2 недели назад
+addWord [] [Empty] = [Empty]
+addWord [] dictionary = dictionary++[Empty]
+addWord (x:xs) [] = (addWord1 (x:xs) [Empty]) 
 addWord (x:xs) [Empty] = (addWord1 (x:xs) [Empty])++[Empty]
 addWord (x:xs) (y@(Node char list):ys)
   | x == char = (Node x (addWord xs list)) : ys
