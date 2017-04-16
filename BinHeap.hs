@@ -3,8 +3,8 @@ data BinTree e = BinTree e [BinTree e]
 
 type BinHeap e = [BinTree e]
 
-insertNode :: Ord e => e -> BinHeap e -> BinHeap e
-insertNode a b = (singletonHeap a) `unionBinHeaps` b
+add :: Ord e => e -> BinHeap e -> BinHeap e
+add a b = (singletonHeap a) `unionBinHeaps` b
 
 singletonHeap :: e -> BinHeap e
 singletonHeap a = [BinTree a []]
@@ -12,8 +12,8 @@ singletonHeap a = [BinTree a []]
 degree :: BinTree e-> Int
 degree (BinTree _ as) = length as
 
-unionBinHeaps :: Ord e => BinHeap e -> BinHeap e -> BinHeap e
-unionBinHeaps x y = mergeT $ mergeDegree x y
+merge :: Ord e => BinHeap e -> BinHeap e -> BinHeap e
+merge x y = mergeT $ mergeDegree x y
 
 mergeDegree :: BinHeap e -> BinHeap e -> BinHeap e
 mergeDegree [] yy = yy
