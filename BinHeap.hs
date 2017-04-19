@@ -29,12 +29,12 @@ mergeT :: Ord e => BinHeap e -> BinHeap e
 mergeT xx =
   case xx of
     (x:x':xs) ->
-      if (degree x) == (degree x') && (null xs || (degree x') /= (degree (head xs)))
+      if (degree x) == (degree x')
         then mergeT ((mergeT' x x'):xs)
         else x:mergeT (x':xs)
     x -> x
 
 mergeT' :: Ord e => BinTree e -> BinTree e -> BinTree e
 mergeT' xx@(BinTree x xs) yy@(BinTree y ys)
-  | x > y = mergeT' yy xx
+  | x > y = (BinTree y (xx:ys))
   | otherwise = (BinTree x (yy:xs))
