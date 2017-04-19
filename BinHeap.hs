@@ -6,6 +6,9 @@ type BinHeap e = [BinTree e]
 add :: Ord e => e -> BinHeap e -> BinHeap e
 add a b = (singletonHeap a) `unionBinHeaps` b
 
+fromList :: Ord e => [e] -> BinHeap e
+fromList p = foldr (add) [] p
+
 singletonHeap :: e -> BinHeap e
 singletonHeap a = [BinTree a []]
 
