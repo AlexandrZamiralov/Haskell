@@ -2,11 +2,12 @@ import Data.Maybe(maybeToList)
 data Map key value = Empty | Map key value (Map key value)
   deriving(Show,Eq)
 
---mk = map key
---mv = map value
---m = children map
---k = key
---м = value
+--mk   = map key
+--mv   = map value
+--m    = children map
+--k    = key
+--м    = value
+--cond = condition
 
 get :: Eq k => k -> Map k v -> Maybe (k,v)
 get = get'
